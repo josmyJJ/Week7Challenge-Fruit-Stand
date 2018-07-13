@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org" lang="en">
+<head th:replace="base :: head-source"></head>
+
+<body class="list-back" >
+<nav th:replace="base :: main-navbar"></nav>
+
+<div class="container p-5">
+
+    <div class="emptySpace"></div>
+
+    <div class="jumbotron">
+        <h2 class="text-center text-warning p-5">Welcome to Ujwal's Fruit Stand</h2>
+    </div>
+
+    <div class="col-md-12 col-md-offset-4 bg-light">
+        <!--<a href="/add" class="pull-right">Add a Course</a><br/>-->
+        <!--<a href="/search" class="pull-right">Search for a Course</a><br/>-->
+        <!--<a href="/">Show All Courses</a><br/>-->
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Day</th>
+                <th>Fruits</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--<div th:if="${search}!=null" th:inline="text">You searched for [[${search}]]</div>-->
+            <tr th:each="fruit :${fruits}">
+                <td th:text ="${fruit.day}"></td>
+                <td th:text ="${fruit.furitname}"></td>
+                <td>
+                    <div th:if="${fruit.img} != null">
+                        <img class="fruitImg" th:src="${fruit.img}" alt="Pictue a fruit">
+                    </div>
+                </td>
+                <!--<img width="200px" class="card-img-top"-->
+                     <!--th:src="(${fruit.img}!=null)?${fruit.img}:'/img/placeholder.png'"/>-->
+                <!--<td th:text ="${fruit.img}"></td>-->
+
+                <td>
+                    <a class="text-info" th:href ="@{/update/{id}(id=${fruit.id})}">Update</a>-
+                    <a class="text-info" th:href ="@{/detail/{id}(id=${fruit.id})}">Details</a>-
+                    <a class="text-info" th:href ="@{/delete/{id}(id=${fruit.id})}">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<div class="emptySpace"></div>
+</body>
+</html>

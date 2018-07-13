@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org" lang="en">
+<head th:replace="base :: head-source"></head>
+
+<body class="list-back" >
+<nav th:replace="base :: main-navbar"></nav>
+
+
+<div class="container p-5 bg-light">
+
+    <div class="emptySpace"></div>
+
+    <a class="text-info" href="/">Show All Fruits</a><br/>
+    Day: <span th:text="${fruit.day}"></span><br/>
+    Fruit: <span th:text="${fruit.furitname}"></span><br/>
+</div>
+
+</body>
+</html>
