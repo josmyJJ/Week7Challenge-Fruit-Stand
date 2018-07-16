@@ -2,36 +2,40 @@
 <html xmlns:th="www.thymeleaf.org" lang="en">
 <head th:replace="base :: head-source"></head>
 
-<body class="list-back" >
+<body>
 <nav th:replace="base :: main-navbar"></nav>
 
-<div class="container p-5 bg-light">
+<div class="space"></div>
 
-    <div class="emptySpace"></div>
+<div class="container p-5 bg-background">
 
-
-    <h1 class="text-center">Update Fruits</h1>
+    <!--<div class="emptySpace"></div>-->
+    <h2 class="text-center">Update or Add Fruits</h2>
     <div class="col-md-6 col-md-offset-3">
         <form th:action="@{/process}" th:object="${fruit}" method="post" enctype="multipart/form-data">
 
-            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{myId}"/>
 
-            <span th:if="${#fields.hasErrors('day')}" th:errors="*{day}"></span><br/>
-            <label>Day: </label><input type="text" th:field="*{day}"/>
+            <span th:if="${#fields.hasErrors('day.dayName')}" th:errors="*{day.dayName}"></span><br/>
+            <label>Day: </label><input type="text" th:field="*{day.dayName}"/>
 
-            <span th:if="${#fields.hasErrors('furitname')}" th:errors="*{furitname}"></span><br/>
-            <label>Fruit: </label><input type="text" th:field="*{furitname}"/><br/>
+            <span th:if="${#fields.hasErrors('fruitName')}" th:errors="*{fruitName}"></span><br/>
+            <label>Fruit: </label><input type="text" th:field="*{fruitName}"/><br/>
 
             <div>
                 <label for="fileInput">Image</label>
                 <input id="fileInput" type="file" name="file" />
             </div>
 
-            <input type="submit" text="Submit"/>
+            <input class="btn btn-info btn-sm" type="submit" value="Submit"/>
+
         </form>
     </div>
 
-</div>
+    <footer th:replace="base :: footer"></footer>
+    <div class="space"></div>
 
+</div> <!-- end container -->
+<div th:replace="base :: scripts"></div>
 </body>
 </html>

@@ -2,54 +2,64 @@
 <html xmlns:th="www.thymeleaf.org" lang="en">
 <head th:replace="base :: head-source"></head>
 
-<body class="list-back" >
+<body>
 <nav th:replace="base :: main-navbar"></nav>
 
 <div class="container p-5">
 
-    <div class="emptySpace"></div>
+    <div class="space"></div>
 
-    <div class="jumbotron">
-        <h2 class="text-center text-warning p-5">Welcome to Ujwal's Fruit Stand</h2>
+    <div class="bg-light bg-background">
+        <h1 class="text-center title-heading p-3">Welcome to Ujwal's Fruit Stand</h1>
+        <h6 class="text-center text-secondary">Hours: 10am to 6 pm daily. Open 10am until 7pm on weekends.</h6>
     </div>
 
-    <div class="col-md-12 col-md-offset-4 bg-light">
-        <!--<a href="/add" class="pull-right">Add a Course</a><br/>-->
-        <!--<a href="/search" class="pull-right">Search for a Course</a><br/>-->
-        <!--<a href="/">Show All Courses</a><br/>-->
+    <div class="col-md-12 col-md-offset-4 table-background table-hover">
         <table class="table">
-            <thead>
+            <thead class="thead-background">
             <tr>
                 <th>Day</th>
                 <th>Fruits</th>
+                <th>Picture</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
-            <!--<div th:if="${search}!=null" th:inline="text">You searched for [[${search}]]</div>-->
             <tr th:each="fruit :${fruits}">
-                <td th:text ="${fruit.day}"></td>
-                <td th:text ="${fruit.furitname}"></td>
+                <td th:text ="${fruit.day.dayName}"></td>
+                <td th:text ="${fruit.fruitName}"></td>
                 <td>
-                    <div th:if="${fruit.img} != null">
-                        <img class="fruitImg" th:src="${fruit.img}" alt="Pictue a fruit">
+                    <div th:if="${fruit.image} != null">
+                        <image class="rounded fruit-img" th:src="${fruit.image}" alt="Pictue a fruit" />
                     </div>
                 </td>
-                <!--<img width="200px" class="card-img-top"-->
-                     <!--th:src="(${fruit.img}!=null)?${fruit.img}:'/img/placeholder.png'"/>-->
-                <!--<td th:text ="${fruit.img}"></td>-->
 
                 <td>
-                    <a class="text-info" th:href ="@{/update/{id}(id=${fruit.id})}">Update</a>-
-                    <a class="text-info" th:href ="@{/detail/{id}(id=${fruit.id})}">Details</a>-
-                    <a class="text-info" th:href ="@{/delete/{id}(id=${fruit.id})}">Delete</a>
+                    <a class="text-secondary" th:href ="@{/update/{myId}(myId=${fruit.myId})}">Update</a>-
+                    <a class="text-secondary" th:href ="@{/detail/{myId}(myId=${fruit.myId})}">Details</a>-
+                    <a class="text-secondary" th:href ="@{/delete/{myId}(myId=${fruit.myId})}">Delete</a>
                 </td>
             </tr>
             </tbody>
         </table>
+        <br/>
+        <hr/>
+        <br/>
+
+        <div class="space"></div>
+        <h2 class="text-center">Location</h2><br/>
+
+        <div class="container" align="center">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d98821.03030003661!2d-76.69052605102632!3d39.28468541976253!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c803aed6f483b7%3A0x44896a84223e758!2sBaltimore%2C+MD!5e0!3m2!1sen!2sus!4v1531711948683" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+        </div>
+        <br/><br/>
+
+        <footer th:replace="base :: footer"></footer>
+        <div class="emptySpace"></div>
     </div>
 
-</div>
+</div> <!--- End container -->
 
-<div class="emptySpace"></div>
+<div th:replace="base :: scripts"></div>
 </body>
 </html>

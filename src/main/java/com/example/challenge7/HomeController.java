@@ -4,8 +4,8 @@ import com.cloudinary.utils.ObjectUtils;
 import com.example.challenge7.config.CloudinaryConfig;
 import com.example.challenge7.config.DaysRepository;
 import com.example.challenge7.config.FruitsRepository;
-import com.example.challenge7.model.Days;
-import com.example.challenge7.model.Fruits;
+import com.example.challenge7.model.Day;
+import com.example.challenge7.model.Fruit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +13,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Map;
@@ -39,12 +38,12 @@ public class HomeController {
 
     @GetMapping("/add")
     public String courseForm(Model model) {
-        model.addAttribute("fruit", new Fruits());
+        model.addAttribute("fruit", new Fruit());
         return "furitupdate";
     }
 
     @PostMapping("/process")
-    public String processForm(@Valid Fruits fruits, @RequestParam("file") MultipartFile file,
+    public String processForm(@Valid Fruit fruit, @RequestParam("file") MultipartFile file,
                               BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "furitupdate";
@@ -57,10 +56,11 @@ public class HomeController {
 
         try {
             Map uploadResult = cloudc.upload(file.getBytes(), ObjectUtils.asMap("resourcetype", "auto"));
-            fruits.setImg(uploadResult.get("url").toString());
-
-            fruitsRepository.save(fruits);
-        } catch (IOException e) {
+            fruit.setImage(uploadResult.get("url").toString());
+            Day day = daysRepository.save(fruit.getDay());
+            fruit.setDay(day);
+            fruitsRepository.save(fruit);
+        } catch (Exception e) {
             e.printStackTrace();
             return "redirect:/add";
         }
@@ -72,33 +72,33 @@ public class HomeController {
 
 //    @RequestMapping("/addDay")
 //    public String addDay(Model model){
-//        model.addAttribute("days",new Days());
+//        model.addAttribute("days",new Day());
 //        model.addAttribute("frutRepo", fruitsRepository.findAll());
 //        model.addAttribute("addDay","");
 //        return "adminday";
 //    }
 //
 //    @PostMapping("/processDay")
-//    public String processDay(@ModelAttribute("days") Days days, Model model){
+//    public String processDay(@ModelAttribute("days") Day days, Model model){
 //        daysRepository.save(days);
 //        model.addAttribute("frutRepo", fruitsRepository.findAll());
-//        model.addAttribute("addDay","You added "+ days.getDayname()+ " to the days table.");
+//        model.addAttribute("addDay","You added "+ days.getDayName()+ " to the days table.");
 //        return "adminpage";
 //    }
 //
 //    @RequestMapping("/addFruit")
 //    public String addFruit(Model model){
-//        model.addAttribute("fruits", new Fruits());
+//        model.addAttribute("fruits", new Fruit());
 //        model.addAttribute("dayRepo", daysRepository.findAll());
 //        model.addAttribute("fruitAdd", "");
 //        return "adminpage";
 //    }
 //
 //    @PostMapping("/processFruit")
-//    public String processFruit(@ModelAttribute Fruits fruits, Model model){
+//    public String processFruit(@ModelAttribute Fruit fruits, Model model){
 //        fruitsRepository.save(fruits);
 //        model.addAttribute("dayRepo", daysRepository.findAll());
-//        model.addAttribute("fruitAdd", "You added "+ fruits.getFuritname() + " to the Fruit table");
+//        model.addAttribute("fruitAdd", "You added "+ fruits.getFruitName() + " to the Fruit table");
 //        return "redirect:/";
 //    }
 
